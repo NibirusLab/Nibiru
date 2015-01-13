@@ -4,20 +4,12 @@
     android:layout_height="match_parent"
     android:padding="0dp"
     tools:context=".MainActivity">
-
     <ImageView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:id="@+id/imageView2"
-        android:src="@color/primary"
+        android:src="#212121"
         android:scaleType="centerCrop"/>
-<!--
-    <ImageView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:id="@+id/imageView3"
-        android:src="#80000000"
-        android:scaleType="centerCrop"/>-->
 
     <EditText
         android:layout_width="fill_parent"
@@ -32,30 +24,20 @@
         android:padding="8dp"
         android:background="@drawable/customedittext"
         android:id="@+id/editText"
-        android:layout_centerVertical="true"
+        android:gravity="center_horizontal"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:gravity="center_horizontal" />
+        android:layout_marginTop="200dp" />
 
-    <Button
-        android:layout_width="fill_parent"
+    <ImageButton
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/go"
+        android:padding="12dp"
         android:id="@+id/button"
-        android:textSize="30dp"
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="25dp"
+        android:src="@mipmap/checkmark"
         android:layout_marginBottom="25dp"
         android:textColor="@color/primary"
         android:background="@drawable/custom_button"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
-
-    <ImageView
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:id="@+id/imageView"
-        android:src="@drawable/ic_launcher"
-        android:layout_above="@+id/editText"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="40dp" />
 </RelativeLayout>
