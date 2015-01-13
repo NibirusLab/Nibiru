@@ -9,5 +9,7 @@
     <style name="MyActionBar"
         parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
         <item name="android:background">@color/primary</item>
+        <item name="android:icon">@mipmap/min</item>
     </style>
+
 </resources>

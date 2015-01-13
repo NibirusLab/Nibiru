@@ -3,4 +3,7 @@
     <color name="primary_dark">#158f77</color>
     <color name="primary">#1abc9c</color>
     <color name="accent">#f0f0f0</color>
+    <color name="orange">#ffcc33</color>
+    <color name="yellow">#E5D846</color>
+
 </resources>
