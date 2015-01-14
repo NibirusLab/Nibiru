@@ -2,6 +2,7 @@ package nibiruslab.org.nibiru;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.database.Cursor;
 import android.graphics.Color;
@@ -41,7 +42,7 @@ public class MainActivity extends Activity {
 
         editText = (AutoCompleteTextView) findViewById(R.id.editText);
         editText.setHintTextColor(getResources().getColor(R.color.grey));
-        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, hashtags);
+        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, hashtags);
         editText.setAdapter(adapter);
     }
 
@@ -65,13 +66,9 @@ public class MainActivity extends Activity {
 
     public void onClick(View view){
         db.newHashtag(String.valueOf(editText.getText()));
-    }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        refreshArrayHashtags();
-        adapter.notifyDataSetChanged();
+        Intent i = new Intent(this, Map.class);
+        startActivity(i);
     }
 
     private void refreshArrayHashtags() {
@@ -80,5 +77,14 @@ public class MainActivity extends Activity {
         while (cursor.moveToNext()) {
             hashtags.add(cursor.getString(1));
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        editText.setText("");
+        refreshArrayHashtags();
+        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, hashtags);
+        editText.setAdapter(adapter);
     }
 }
