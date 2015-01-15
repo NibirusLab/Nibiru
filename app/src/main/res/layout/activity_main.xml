@@ -16,18 +16,18 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="25dp"
         android:textSize="25dp"
-        android:textAlignment="center"
-        android:inputType="textAutoComplete"
+        android:id="@+id/editText"
         android:layout_marginRight="25dp"
         android:hint="#Hashtag"
         android:textColor="@color/accent"
         android:padding="8dp"
         android:background="@drawable/customedittext"
-        android:id="@+id/editText"
-        android:gravity="center_horizontal"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="200dp" />
+        android:layout_marginTop="200dp"
+        android:gravity="center_horizontal"
+        android:inputType="textPersonName"
+        android:imeOptions="actionSend"/>
 
     <ImageButton
         android:layout_width="wrap_content"
