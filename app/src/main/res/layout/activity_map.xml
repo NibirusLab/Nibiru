@@ -10,4 +10,20 @@
         android:id="@+id/webView"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
+
+    <ImageButton
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:padding="2dp"
+        android:id="@+id/shareButton"
+        android:src="@mipmap/ic_share"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="8dp"
+        android:alpha="0.5"
+        android:scaleType="centerCrop"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:background="#00000000"
+        android:onClick="onClick"/>
+
 </RelativeLayout>
