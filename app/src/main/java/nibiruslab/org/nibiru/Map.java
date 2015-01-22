@@ -2,35 +2,23 @@ package nibiruslab.org.nibiru;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.Canvas;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.webkit.WebChromeClient;
-import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.ShareActionProvider;
-import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.net.URI;
-import java.net.URISyntaxException;
-
+import java.util.Date;
 
 public class Map extends Activity implements View.OnClickListener {
 
@@ -58,13 +46,8 @@ public class Map extends Activity implements View.OnClickListener {
 
             public void handshake(String json) {}
         }, "Android");
+
         map.loadUrl("http://diskdejorge.myds.me:3000/");
-
-        //map.loadUrl("http://diskdejorge.myds.me:3000/");
-
-        //Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://diskdejorge.myds.me:3000/"));
-        //map.getContext().startActivity(intent);
-        //finish();
     }
 
     public Bitmap takeScreenshot(){
@@ -76,8 +59,12 @@ public class Map extends Activity implements View.OnClickListener {
     }
 
     public String saveBitmap(Bitmap bitmap){
-        File imagePath = new File(Environment.getExternalStorageDirectory() + "/screenshot.png");
+        File imagePath = new File(Environment.getExternalStorageDirectory() + "/Nibiru/Nibirus Images/IMG-" + nameImage() + "-Nibirus.png");
         FileOutputStream fos;
+        File folder = new File(Environment.getExternalStorageDirectory() + "/Nibiru/Nibirus Images/");
+        if (!folder.exists()){
+            folder.mkdirs();
+        }
         try {
             fos = new FileOutputStream(imagePath);
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
@@ -93,13 +80,44 @@ public class Map extends Activity implements View.OnClickListener {
     }
 
     public void shareOnTwitter(String imagePath){
-        Intent share = new Intent(Intent.ACTION_SEND);
+        Intent share;
+        if (!packageExist()){
+            share = new Intent(Intent.ACTION_VIEW, Uri.parse(getResources().getString(R.string.no_twitter)));
+            startActivity(Intent.createChooser(share, getResources().getString(R.string.tweet_title)));
+            return;
+        }
+        share = new Intent(Intent.ACTION_SEND);
         share.setPackage("com.twitter.android");
         share.setType("image/*");
-        share.putExtra(Intent.EXTRA_TEXT, "I´m using gi#Nibiru");
+        share.putExtra(Intent.EXTRA_TEXT, getResources().getString(R.string.tweet));
         Uri screenshotUri = Uri.parse(imagePath);
         share.putExtra(Intent.EXTRA_STREAM, screenshotUri);
-        startActivity(Intent.createChooser(share, "Share image using"));
+        startActivity(Intent.createChooser(share, getResources().getString(R.string.tweet_title)));
+    }
+
+    public boolean packageExist(){
+        PackageManager pm = getPackageManager();
+
+        try{
+            pm.getPackageInfo("com.twitter.android", PackageManager.GET_ACTIVITIES);
+            return true;
+        } catch (PackageManager.NameNotFoundException e) {
+            return false;
+        }
+    }
+
+    public String nameImage(){
+        Date date = new Date();
+        String nameDate = "";
+
+        nameDate += String.valueOf(date.getDay());
+        nameDate += String.valueOf(date.getMonth());
+        nameDate += String.valueOf(date.getYear());
+        nameDate += String.valueOf(date.getHours());
+        nameDate += String.valueOf(date.getMinutes());
+        nameDate += String.valueOf(date.getSeconds());
+
+        return nameDate;
     }
 
     @Override
